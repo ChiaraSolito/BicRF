@@ -17,7 +17,7 @@ jaccard_sims.tree_6 = struct(['obj_' objs{1}], zeros(length(feats),10), ['obj_' 
 jaccard_sims.tree_7 = struct(['obj_' objs{1}], zeros(length(feats),10), ['obj_' objs{2}], zeros(length(feats),10), ['obj_' objs{3}], zeros(length(feats),10), ['obj_' objs{4}], zeros(length(feats),10));
 jaccard_sims.tree_8 = struct(['obj_' objs{1}], zeros(length(feats),10), ['obj_' objs{2}], zeros(length(feats),10), ['obj_' objs{3}], zeros(length(feats),10), ['obj_' objs{4}], zeros(length(feats),10));
 %%
-for t = 1:1
+for t = 1:1demoRFC_singleRUN.m
     tree_sz = tree_szs(t);
     for l=1:2
         obj = objs{l};
