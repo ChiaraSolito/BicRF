@@ -85,7 +85,7 @@ param.maxDepth = inf;
 % maxDEpth: max depth of the tree
 % 0 --> means ceil(log2(size(training of x))
 % ------------------
-param.verbose = 1; 
+param.verbose = 0; 
 % show progress
 % ------------------
 % Specific parameters for specific methods

@@ -91,10 +91,10 @@ function [final_objects,final_features,similarities] = RFC_getBiclus_v4(represen
     end
     
     %plot the curve of mean tests
-    plot(mean_tests)
-    title('Variation of common tests')
-    ylabel('Mean Test Percentage')
-    xlabel('Number of Features')
+    % plot(mean_tests)
+    % title('Variation of common tests')
+    % ylabel('Mean Test Percentage')
+    % xlabel('Number of Features')
     %select only the features that are above the threshold
     final_repr = representation(region,:);
     final_objects = sort(region);
