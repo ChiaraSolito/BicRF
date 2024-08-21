@@ -7,15 +7,17 @@ rng('default');
 nclus = 2;
 names = {'constant','columnconstant','rowconstant','scaling', 'shifting', 'orderpreserving'};
 thrs=[0.5, 0.4, 0.28, 0.2, 0.17];
-opt = -1;
-best_metric = -1;
+
 %% 
 for n=1:length(names)
     name = names{n};
     purity_RF = zeros(10,5);
     inverse_RF = zeros(10,5);
+    opt = -1;
+    best_metric = -1;
+
     for i=0:9
-    
+        
         %% PROCESS DATA
         sname = ['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_data.tsv'];
         fid = fopen(['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_bics.json']);
@@ -56,6 +58,7 @@ for n=1:length(names)
 
             metric = mean([purity_RF(i+1,t),inverse_RF(i+1,t)]);
             if metric > best_metric
+                best_metric = metric;
                 opt = thr;
             end
 
@@ -87,8 +90,8 @@ for n=1:length(names)
         thr = thrs(t);
         metrics = zeros(10,3);
         metrics(:,1) = 0:9;
-        metrics(:,2) = purity_RF(t);
-        metrics(:,3) = inverse_RF(t);
+        metrics(:,2) = purity_RF(:,t);
+        metrics(:,3) = inverse_RF(:,t);
         if opt == thr
             csvwrite([metrics_file num2str(thr*100) '_opt.csv'],metrics);
         else

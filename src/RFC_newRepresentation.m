@@ -26,3 +26,9 @@ end
 representation(:,1) = [];
 thetas(1) = [];
 features(1) = [];
+
+%convert randomly 50% of features
+% sampler = randsample(numfeat,ceil(numfeat/2));
+% for index=sampler
+%    representation(:,index) = ~representation(:,index);
+% end

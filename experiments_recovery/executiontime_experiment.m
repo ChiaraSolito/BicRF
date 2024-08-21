@@ -1,9 +1,12 @@
 %%
+
 objs = {'1000', '5000', '10000', '20000'};
 n_feats =  {'50','100','200','300','400','500', '750', '1000'};
 labels = [1000, 5000, 10000, 20000];
+
+%%
 colors = {'r', [0.4660 0.6740 0.1880], 'b', [0.9290 0.6940 0.1250], [0.3010 0.7450 0.9330], 'm'};
-jaccard_sims = struct(['obj_' objs{1}], zeros(length(n_feats),10), ['obj_' objs{2}], zeros(length(n_feats),10), ['obj_' objs{3}], zeros(length(n_feats),10), ['obj_' objs{4}], zeros(length(n_feats),10));
+time_exec = struct(['obj_' objs{1}], zeros(length(n_feats),10), ['obj_' objs{2}], zeros(length(n_feats),10), ['obj_' objs{3}], zeros(length(n_feats),10), ['obj_' objs{4}], zeros(length(n_feats),10));
 for l=1:length(objs)
     obj = objs{l};
     for j=1:length(n_feats)
@@ -28,26 +31,25 @@ for l=1:length(objs)
         columns = columns + 1;
 
         rng('shuffle');
+        
         param = RFC_defaultParam;
         param.maxDepth = 5;
         rfc = RFC_RFtrain(data,param);
         CI = RFC_getRFClusInfo(data,rfc,param);
     
-        [representation, feats, ~] = RFC_newRepresentation(CI, data);
+        objnum = size(data,1);
+        [representation, feats, thetas] = RFC_newRepresentation(CI, data);
     
-        new_mat = RFC_getNewMatrix(representation, feats, num_feats);
-        new_mat = new_mat(columns,rows);
-    
-        true_rep = ones(length(columns),length(rows));
-        JJ = sum(new_mat & true_rep)/sum(new_mat | true_rep);
+        [final_objects,final_features,similarities] = RFC_getBiclus_v4(representation, objnum, feats,0.5);
 
-        jaccard_sims.(['obj_' obj])(j) = toc;
+
+        time_exec.(['obj_' obj])(j) = toc;
          
     end
 end
 
 %%
-save jaccard_sims
+save time_exec
 
 %%
 obj_labels = {['obj ' objs{1}], ['obj ' objs{2}], ['obj ' objs{3}], ['obj ' objs{4}]};
@@ -55,7 +57,7 @@ h = zeros(8,1);
 for o=1:4
     obj = objs{o};
     hold on
-    h(j) = plot(labels,jaccard_sims.(['obj_' obj])(:,1),'Color',colors{o});
+    h(j) = plot(labels,time_exec.(['obj_' obj])(:,1),'Color',colors{o});
     hold off
 end
 

@@ -7,14 +7,14 @@ rng('default');
 nclus = 2;
 
 %% DATA GENERATION
-data = RFC_generateData(100,100,0);
-real_bicluster = data([25:75],[25:75]);
+data = RFC_generateData(5,5,0,2,4);
+real_bicluster = data([2:4],[2:4]);
 
 %% PLOT ORIGINAL DATA
 %plot data matrix
 figure, imagesc(data)
 colorbar
-title('Dataset Illustrative 1')
+title('Toy Dataset')
 xlabel('Features')
 ylabel('Objects')
 
@@ -26,7 +26,7 @@ rfc = RFC_RFtrain(data,param);
 CI = RFC_getRFClusInfo(data,rfc,param);
 
 %% GET TREE IMAGE 
-tree = rfc.trees{1};
+tree = rfc.trees{99};
 p = [];
 root = 0;
 tests = [];

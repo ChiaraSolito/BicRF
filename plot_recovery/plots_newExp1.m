@@ -2,9 +2,9 @@
 jaccard_means = zeros(4,6,7);
 jaccard_stds = zeros(4,6,7);
 
-for o=1:4
+for o=1:length(objs)
     obj = objs{o};
-    for j=1:1
+    for j=1:length(names)
         name = names{j};
         for s = 1:7
             jaccard_means(o,j,s) = mean(jaccard_sims.(name).(['obj_' obj])(s,:));
@@ -21,6 +21,7 @@ for o=1:4
         xticks(labels); 
         xticklabels(labels);
         xlim([95 1005]);
+        ylim([0.6 1.0])
         legend('Mean','Std');
         grid on
         xlabel('Number of features');
@@ -31,11 +32,12 @@ for o=1:4
 end
 %%
 figure
-for o=1:4
+for o=1:length(objs)
     obj = objs{o};
     subplot(2,2,o)
     h = zeros(1,6);
-    for j=1:1
+    for j=1:length(names)
+        name = names{j};
         hold on
         mean_to_plot = reshape(jaccard_means(o,j,:),1,[]);
         h(j) = plot(labels,mean_to_plot,'Color',colors{j});
@@ -50,8 +52,8 @@ for o=1:4
     xlabel('Number of features');
     ylabel('Jaccard Similarity');
 end
-%leg = legend(h, names);
-sgtitle('Mean over ten generated forests')
+leg = legend(h, names);
+sgtitle('Mean over ten generated datasets')
 saveas(gcf,'mean_overall.png');
 %%
 figure
@@ -80,29 +82,30 @@ sgtitle('Mean over ten generated datasets')
 saveas(gcf,'mean_std_all.png');
 
 %%
-obj = objs{4};
-for j=1:length(feats)
-    figure
-    size = feats{j};
-    sim_size = zeros(10,6);
-    for i=1:6
-        name = names{i};
-        sim_size(:,i) = jaccard_sims.(name).(['obj_' obj])(j,:);
+for o = 1:length(objs)
+    obj = objs{o};
+    for j=1:length(feats)
+        figure
+        size = feats{j};
+        sim_size = zeros(10,6);
+        for i=1:6
+            name = names{i};
+            sim_size(:,i) = jaccard_sims.(name).(['obj_' obj])(j,:);
+        end
+        b = boxplot(sim_size, names);
+        grid on
+        xticks([1:6]);
+        ylim([0 1.0])
+        title([num2str(size) ' features']);
+        %xticklabels(names);
+        %leg = legend(b, names);
+        %title(leg,'Bicluster type')
+        %xlim([90 510])
+        xlabel('Bicluster type');
+        ylabel('Jaccard Similarity');
+        saveas(gcf,[num2str(size) num2str(obj) '_boxplot.png']);
     end
-    b = boxplot(sim_size, names);
-    grid on
-    xticks([1:6]);
-    ylim([0 1.0])
-    title([num2str(size) ' features']);
-    %xticklabels(names);
-    %leg = legend(b, names);
-    %title(leg,'Bicluster type')
-    %xlim([90 510])
-    xlabel('Bicluster type');
-    ylabel('Jaccard Similarity');
-    saveas(gcf,[num2str(size) num2str(obj) '_boxplot.png']);
 end
-
 
 %%
 jaccard_total = zeros(10,4,6);
