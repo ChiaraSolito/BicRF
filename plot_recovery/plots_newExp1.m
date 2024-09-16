@@ -10,37 +10,38 @@ for o=1:length(objs)
             jaccard_means(o,j,s) = mean(jaccard_sims.(name).(['obj_' obj])(s,:));
             jaccard_stds(o,j,s) = std(jaccard_sims.(name).(['obj_' obj])(s,:));
         end
-        figure
-        mean_to_plot = reshape(jaccard_means(o,j,:),1,[]);
-        plot(labels,mean_to_plot,'Color',colors{j});
-        hold on
-        std_to_plot = reshape(jaccard_stds(o,j,:),1,[]);
-        fill([labels, flip(labels)], [mean_to_plot + std_to_plot, flip(mean_to_plot - std_to_plot)], colors{j} ,'FaceAlpha',0.3,'LineStyle',"--",'EdgeColor',colors{j});
-        hold off
-        title(['Num objs: ' obj ', Bicluster type: ' names{j}]);
-        xticks(labels); 
-        xticklabels(labels);
-        xlim([95 1005]);
-        ylim([0.6 1.0])
-        legend('Mean','Std');
-        grid on
-        xlabel('Number of features');
-        ylabel('Jaccard Similarity');
-        saveas(gcf,[names{j} '_' obj '.png']);
+        % figure
+        % mean_to_plot = reshape(jaccard_means(o,j,:),1,[]);
+        % plot(labels,mean_to_plot,'Color',colors{j});
+        % hold on
+        % std_to_plot = reshape(jaccard_stds(o,j,:),1,[]);
+        % fill([labels, flip(labels)], [mean_to_plot + std_to_plot, flip(mean_to_plot - std_to_plot)], colors{j} ,'FaceAlpha',0.3,'LineStyle',"--",'EdgeColor',colors{j});
+        % hold off
+        % title(['Num objs: ' obj ', Bicluster type: ' names{j}]);
+        % xticks(labels); 
+        % xticklabels(labels);
+        % xlim([95 1005]);
+        % ylim([0.6 1.0])
+        % legend('Mean','Std');
+        % grid on
+        % xlabel('Number of features');
+        % ylabel('Jaccard Similarity');
+        %saveas(gcf,[names{j} '_' obj '.eps']);
        
     end
 end
 %%
 figure
+tcl = tiledlayout(2,2);
 for o=1:length(objs)
     obj = objs{o};
-    subplot(2,2,o)
+    nexttile(tcl)
     h = zeros(1,6);
     for j=1:length(names)
         name = names{j};
         hold on
         mean_to_plot = reshape(jaccard_means(o,j,:),1,[]);
-        h(j) = plot(labels,mean_to_plot,'Color',colors{j});
+        h(j) = plot(labels,mean_to_plot,'Color',colors{j},'LineWidth',3);
         hold off
     end
     title(['Number of objects: ' obj]);
@@ -53,8 +54,12 @@ for o=1:length(objs)
     ylabel('Jaccard Similarity');
 end
 leg = legend(h, names);
-sgtitle('Mean over ten generated datasets')
-saveas(gcf,'mean_overall.png');
+leg.Layout.Tile = 'East';
+sgtitle('Mean over ten generated forests')
+fontsize(16,"points")
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]);
+print('bic10_10RF.eps','-depsc');
+
 %%
 figure
 for o=1:4
@@ -79,13 +84,15 @@ for o=1:4
 end
 leg = legend(e, names);
 sgtitle('Mean over ten generated datasets')
-saveas(gcf,'mean_std_all.png');
+fontsize(16,"points")
+saveas(gcf,'mean_std_all.eps');
 
 %%
 for o = 1:length(objs)
     obj = objs{o};
     for j=1:length(feats)
         figure
+        fontsize(25,"points")
         size = feats{j};
         sim_size = zeros(10,6);
         for i=1:6
@@ -103,7 +110,11 @@ for o = 1:length(objs)
         %xlim([90 510])
         xlabel('Bicluster type');
         ylabel('Jaccard Similarity');
-        saveas(gcf,[num2str(size) num2str(obj) '_boxplot.png']);
+        fontsize(25,"points")
+        set(findobj(gca,'type','line'),'linew',3)
+        set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0.04, 1, 0.96]);
+        print([num2str(size) num2str(obj) '_boxplot.eps'],'-depsc');
+
     end
 end
 
