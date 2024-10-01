@@ -60,7 +60,7 @@ _Mode 4_ : Replicate thesis experiment - complex dataset:
 
 _Mode 5_ : Replicate experiments for bicluster recovery:
 
-    See _experiments_recovery_ folder
+    See "experiments_recovery" folder
    
 **Replicate thesis complex datasets with GBic**
 -------------------------------------------
