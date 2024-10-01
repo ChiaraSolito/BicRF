@@ -2,13 +2,12 @@
 clear all
 close all
 addpath(genpath('/home/chiara/Documenti/chiaras_thesis/BicRF/'));
-tic;
 rng('default');
 nclus = 2;
 
 %% DATA GENERATION
-data = RFC_generateData(5,5,0,2,4);
-real_bicluster = data([2:4],[2:4]);
+data = RFC_generateData(100,100,0,25,75);
+real_bicluster = data([25:75],[25:75]);
 
 %% PLOT ORIGINAL DATA
 %plot data matrix
@@ -72,24 +71,6 @@ title('Bicluster with Random Forest')
 ylabel('Objects')
 xlabel('Features')
 
-%% VISUALIZE ORIGINAL BICLUSTER IN ORIGINAL MATRIX
-% figure, imagesc(data)
-% for o = columns
-%    y = o - 0.5;
-%    h = 1;
-%    for f = rows
-%        x = f - 0.5;
-%        w = 1;
-%        rectangle('Position',[x y w h],'EdgeColor','r')
-%    end
-% end
-% colorbar
-% title('True Bicluster')
-% ylabel('Objects')
-% xlabel('Features')
-
 %% CALCULATE METRICS
 purity_RF = purity(final_features,final_objects,[25:75],[25:75]);
 inverse_RF = inverse_purity(final_features,final_objects,[25:75],[25:75]);
-
-toc

@@ -9,9 +9,9 @@ purity_RF = zeros(5);
 inverse_RF = zeros(5);
 
 %% DATA PROCESSING
-sname = ['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/constant/obj_1000/feat_100/constant_1000x100_0_data.tsv'];
-fid = fopen(['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/constant/obj_1000/feat_100/constant_1000x100_0_bics.json']);
-metrics_file = ['/home/chiara/Documenti/chiaras_thesis/algorithms_biclustering/results/nonbinary/constant/results_bicRF'];
+sname = ['path_to_file.tsv'];
+fid = fopen(['path_to_file.json']);
+metrics_file = ['path'];
 
 data = tsvread(sname);
 data = data(2:end, 2:end);

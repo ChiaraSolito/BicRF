@@ -19,9 +19,9 @@ for n=1:length(names)
     for i=0:9
         
         %% PROCESS DATA
-        sname = ['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_data.tsv'];
-        fid = fopen(['/home/chiara/Documenti/chiaras_thesis/BicRF/templates/bic_50/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_bics.json']);
-        metrics_file = ['/home/chiara/Documenti/chiaras_thesis/algorithms_biclustering/results/nonbinary/' name '/results_bicRF'];
+        sname = ['path_to_dataset/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_data.tsv'];
+        fid = fopen(['path_to_dataset/' name '/obj_1000/feat_100/' name '_1000x100_' num2str(i) '_bics.json']);
+        metrics_file = ['path_to_metrics_storage/'];
     
         data = tsvread(sname);
         data = data(2:end, 2:end);
