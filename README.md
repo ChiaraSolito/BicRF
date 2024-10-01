@@ -24,28 +24,48 @@ For each feature in the extracted representation, we determine the number of tes
 **Setup**
 -------------------------------------------
 1. Matlab2023b
-2. blaaa:
+2. Bioinformatics Toolbox version 23.2
+3. Parallel Computing Toolbox version version 23.2
 
-   a)  python >= 3
-   
-   b)  seaborn
 
 **Input**
 -------------------------------------------
 The input to BicRF is any matrix that can be read via Matlab.
 
+
 **Usage**
 -------------------------------------------
-_Mode 1_ : Use on a single matrix: 
-    a)
-    b)
+_Mode 1_ : Use on a single matrix with unknown solution structured as GBic: 
+    a) Use `demoBicRF_originalData.m` script
+    b) Substitute the path to the tsv file and the json file in `line 9` and `line 10`
+    c) Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
 
 _Mode 2_ : Replicate thesis experiment - toy dataset:
+    a) Run `demoBicRF_toyExample.m`
 
-_Mode 3_ : Replicate thesis experiment - complex dataset:
+_Mode 3_ : Use on a single matrix with known solution structured as GBic: 
+    a) Use `demoBicRF_opt.m` script
+    b) Substitute the path to the tsv file and the json file in `line 12` and `line 13`
+    c) Add path to store metrics in `line 14`
+    d) Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
 
+_Mode 4_ : Replicate thesis experiment - complex dataset:
+    a) Generate datasets with GBic
+    b) Substitute the path to the tsv file and the json file in `line 22` and `line 23`
+    c) Add path to store metrics in `line 24`
 
+_Mode 5_ : Replicate experiments for bicluster recovery:
+    See _experiments_recovery_ folder
+   
 **Replicate thesis complex datasets with GBic**
 -------------------------------------------
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+| Data type      | Real Values                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| Background     | Uniform                                                                      |
+| Alphabet       | [−100, 100]                                                                  |
+| Row Size       | 1000, 5000, 10000, 20000                                                     |
+| Column Size    | 50, 100, 200, 300, 400, 500, 750, 1000                                       |
+| Bicluster Size | 10x10, 50x50                                                                 |
+| Coherencies    | Constant, Row Constant, Column Constant, Shifting, Scaling, Order Preserving |
 -------------------------------------------
