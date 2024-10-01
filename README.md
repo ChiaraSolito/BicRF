@@ -36,23 +36,23 @@ The input to BicRF is any matrix that can be read via Matlab.
 **Usage**
 -------------------------------------------
 _Mode 1_ : Use on a single matrix with unknown solution structured as GBic: 
-    a) Use `demoBicRF_originalData.m` script
-    b) Substitute the path to the tsv file and the json file in `line 9` and `line 10`
-    c) Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
+    1. Use `demoBicRF_originalData.m` script
+    2. Substitute the path to the tsv file and the json file in `line 9` and `line 10`
+    3. Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
 
 _Mode 2_ : Replicate thesis experiment - toy dataset:
-    a) Run `demoBicRF_toyExample.m`
+    1. Run `demoBicRF_toyExample.m`
 
 _Mode 3_ : Use on a single matrix with known solution structured as GBic: 
-    a) Use `demoBicRF_opt.m` script
-    b) Substitute the path to the tsv file and the json file in `line 12` and `line 13`
-    c) Add path to store metrics in `line 14`
-    d) Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
+    1. Use `demoBicRF_opt.m` script
+    2. Substitute the path to the tsv file and the json file in `line 12` and `line 13`
+    3. Add path to store metrics in `line 14`
+    4. Select a threshold based on the data (e.g constant data needs higher thresholds, max threshold should be 0.5)
 
 _Mode 4_ : Replicate thesis experiment - complex dataset:
-    a) Generate datasets with GBic
-    b) Substitute the path to the tsv file and the json file in `line 22` and `line 23`
-    c) Add path to store metrics in `line 24`
+    1. Generate datasets with GBic
+    2. Substitute the path to the tsv file and the json file in `line 22` and `line 23`
+    3. Add path to store metrics in `line 24`
 
 _Mode 5_ : Replicate experiments for bicluster recovery:
     See _experiments_recovery_ folder
